@@ -5,12 +5,11 @@ jobs:
       - image: circleci/python:3.7.1
     steps:
       - checkout
-      - run:
-            pip install pipenv
-            pipenv shell
-            pipenv install
-            coverage run --source='expenses/apps' manage.py test && coverage report
-            COVERALLS_REPO_TOKEN=${REPO_TOKEN} coveralls
+      - run: pip install pipenv
+      - run: pipenv shell
+      - run: pipenv install
+      - run: coverage run --source='expenses/apps' manage.py test && coverage report
+      - run: COVERALLS_REPO_TOKEN=${REPO_TOKEN} coveralls
       - store_artifacts:
           path: test-reports
           destination: test-reports
