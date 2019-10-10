@@ -1,0 +1,27 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/python:3.7.1
+      - image: circleci/postgres:11.3
+      - image: redis:4.0.6
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+      - run:
+          name: install dependencies
+          command: |
+            pip install pipenv
+            pipenv install
+      - run:
+          name: run tests
+          command: |
+            . pipenv shell
+            pipenv install
+            coverage run --source='expenses/apps' manage.py test && coverage report
+            COVERALLS_REPO_TOKEN=${REPO_TOKEN} coveralls
+
+      - store_artifacts:
+          path: test-reports
+          destination: test-reports
