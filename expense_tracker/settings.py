@@ -71,6 +71,12 @@ TEMPLATES = [
     },
 ]
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'expense_tracker.apps.authentication.backends.JWTAuthentication'
+    ]
+}
+
 WSGI_APPLICATION = 'expense_tracker.wsgi.application'
 
 
