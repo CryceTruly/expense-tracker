@@ -14,7 +14,11 @@ class UserJSONRenderer(JSONRenderer):
         errors = ''
         response = json.dumps({'user': data})
         if isinstance(data, list):
+<<<<<<< HEAD
             return json.dumps({'users': data})
+=======
+            return json.dumps({'authorslist': data})
+>>>>>>> feat(accounts): Implement Account management
         try:
             errors = data.get('errors', None)
         except:
