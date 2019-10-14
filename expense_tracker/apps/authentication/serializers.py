@@ -4,11 +4,14 @@ from django.contrib.auth import authenticate
 
 from rest_framework import serializers
 <<<<<<< HEAD
+<<<<<<< HEAD
 from .models import User
 from rest_framework.exceptions import AuthenticationFailed
 =======
 
 from authors.apps.profiles.serializers import ProfileSerializer
+=======
+>>>>>>> ch(access): Implement Access control
 from .models import User
 
 >>>>>>> feat(accounts): Implement Account management
@@ -156,9 +159,12 @@ class UserSerializer(serializers.ModelSerializer):
     # change them, but that would create extra work while introducing no real
     # benefit, so let's just stick with the defaults.
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     profile = ProfileSerializer(many=False, read_only=True, required=False)
 >>>>>>> feat(accounts): Implement Account management
+=======
+>>>>>>> ch(access): Implement Access control
     password = serializers.CharField(
         max_length=128,
         min_length=8,

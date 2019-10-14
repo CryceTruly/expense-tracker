@@ -3,14 +3,25 @@ from rest_framework.response import Response
 from .models import Expense
 from .serializer import ExpenseSerializer
 from django.shortcuts import get_object_or_404
-
+from rest_framework import permissions
+from .permissions import IsOwnerOrReadOnly
 
 class ExpensesAPIView(generics.ListCreateAPIView):
     queryset=Expense.objects.all()
     serializer_class=ExpenseSerializer
+    permission_classes=(permissions.IsAuthenticatedOrReadOnly,)
+
+    def perform_create(self,serializer):
+        serializer.save(owner=self.request.user)
+
+    def get_queryset(self):
+        return self.queryset.filter(owner=request.user)
+
+
 
 class ExpenseDetailsAPIView(generics.GenericAPIView):
     serializer_class=ExpenseSerializer
+    permission_classes=(IsOwnerOrReadOnly,)
     def get(self,request,id):
         expense = self.get_object(id)
         if not expense:
