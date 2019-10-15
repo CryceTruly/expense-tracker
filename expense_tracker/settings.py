@@ -26,8 +26,7 @@ SECRET_KEY = '9$z$$l3_)#a6*19(zb@qc#nyw+42!sidy@o1rlej&3r3jexp!0'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
-
+AUTH_USER_MODEL = "authentication.User"
 # Application definition
 
 INSTALLED_APPS = [

@@ -6,6 +6,7 @@ from .views import (
 urlpatterns = [
     path('user/', UserRetrieveUpdateAPIView.as_view(), name='viewusers'),
 <<<<<<< HEAD
+<<<<<<< HEAD
     path('auth/register', RegistrationAPIView.as_view(), name='registration'),
     path('auth/login/', LoginAPIView.as_view(), name='login'),
     path('auth/verify/', EmailVerifyAPIView.as_view(), name='verify_email'),
@@ -13,6 +14,9 @@ urlpatterns = [
         'auth/reset-password/',
 =======
     path('users/register', RegistrationAPIView.as_view(), name='registration'),
+=======
+    path('users/register/', RegistrationAPIView.as_view(), name='registration'),
+>>>>>>> feat(access):Restrict access to expense owners
     path('users/login/', LoginAPIView.as_view(), name='login'),
     path('users/verify/', EmailVerifyAPIView.as_view(), name='verify_email'),
     path(

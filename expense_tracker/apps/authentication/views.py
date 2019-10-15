@@ -127,8 +127,6 @@ class PasswordResetAPIView(generics.GenericAPIView):
 
     def post(self, request):
         domain=request.META.get('HTTP_ORIGIN', get_current_site(request).domain)
-
-
         try:
             get_object_or_404(User, email=request.data['email'])
             message = [
