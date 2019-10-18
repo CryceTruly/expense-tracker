@@ -19,7 +19,7 @@ jobs: # A basic unit of work in a run
       - run: sudo chown -R circleci:circleci /usr/local/lib/python3.6/site-packages
       - run:
           command: |
-            virtualenv -m python3 venv
+            virtualenv venv
             source venv/bin/activate
             pip install -r requirements.txt
             pipenv install
