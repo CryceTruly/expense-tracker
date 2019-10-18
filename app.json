@@ -1,0 +1,16 @@
+{
+  "addons": [
+
+  ],
+  "buildpacks": [
+
+  ],
+  "env": {
+  },
+  "formation": {
+  },
+  "name": "expense-tracker",
+  "scripts": {
+  },
+  "stack": "heroku-18"
+}
