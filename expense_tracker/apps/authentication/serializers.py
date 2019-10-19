@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate
 
 from rest_framework import serializers
 from .models import User
-
+from rest_framework.exceptions import AuthenticationFailed
 from .validators import validate_email
 
 
@@ -89,7 +89,7 @@ class LoginSerializer(serializers.Serializer):
         # As mentioned above, a password is required. Raise an exception if a
         # password is not provided.
         if password is None:
-            raise serializers.ValidationError(
+            raise AuthenticationFailed(
                 'A password is required to log in.'
             )
 
@@ -102,8 +102,8 @@ class LoginSerializer(serializers.Serializer):
         # If no user was found matching this email/password combination then
         # `authenticate` will return `None`. Raise an exception in this case.
         if user is None:
-            raise serializers.ValidationError(
-                'A user with this email and password was not found.'
+            raise AuthenticationFailed(
+                'Incorrect login credentials',401
             )
 
         # Django provides a flag on our `User` model called `is_active`. The
@@ -147,7 +147,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('email', 'username', 'password', 'profile', )
+        fields = ('email', 'username', 'password', )
 
         # The `read_only_fields` option is an alternative for explicitly
         # specifying the field with `read_only=True` like we did for password

@@ -21,8 +21,6 @@ schema_view = get_schema_view(
 urlpatterns = [
     path('exp/adm/', admin.site.urls),
     path('api-auth/',include('rest_framework.urls')),
-    path('api/',include(('expense_tracker.apps.expenses.urls','expenses'),
-    namespace='expenses')),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), 
     name='schema-redoc'),
     path('docs/', schema_view.with_ui('swagger', cache_timeout=0),

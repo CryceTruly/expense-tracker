@@ -14,7 +14,7 @@ class UserJSONRenderer(JSONRenderer):
         errors = ''
         response = json.dumps({'user': data})
         if isinstance(data, list):
-            return json.dumps({'authorslist': data})
+            return json.dumps({'users': data})
         try:
             errors = data.get('errors', None)
         except:

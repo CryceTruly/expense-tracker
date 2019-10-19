@@ -38,7 +38,7 @@ class RegistrationAPIView(generics.GenericAPIView):
             "verify",
             user_data.get('token'),
             "Confirm Your Email Address",
-            "created an account on Authors heaven.",
+            "created an expense tracker account.",
             user_data['email']
         ]
         Utilities.send_email(message,None,'auth')
@@ -104,7 +104,8 @@ class EmailVerifyAPIView(generics.GenericAPIView):
         user.is_verified = True
         user.save()
         domain = os.environ.get('FRONT_END_URL','localhost')
-        return HttpResponseRedirect(domain)
+        #TODO UPdate with a redirect
+        return self.sendResponse('Account activation successfull',200)
 
     def sendResponse(self, message, status=status.HTTP_400_BAD_REQUEST):
         return Response({"message": message}, status)
