@@ -22,7 +22,7 @@ jobs: # A basic unit of work in a run
             virtualenv venv
             source venv/bin/activate
             pip install -r requirements.txt
-            coverage run --source='expenses/apps,' manage.py test && coverage report
+            python manage.py test
       - store_test_results: # Upload test results for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/
          
           path: test-results
