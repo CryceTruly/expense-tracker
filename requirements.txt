@@ -11,15 +11,10 @@ Django==2.2.6
 django-heroku==0.3.1
 djangorestframework==3.10.3
 docopt==0.6.2
-<<<<<<< HEAD
 drf-yasg==1.17.0
 gunicorn==19.9.0
 idna==2.8
 inflection==0.3.1
-=======
-gunicorn==19.9.0
-idna==2.8
->>>>>>> ch(tests): Report test coverage
 isort==4.3.21
 itypes==1.1.0
 Jinja2==2.10.3
