@@ -4,14 +4,14 @@ authentication test data
 valid_user = {
 
         "username": "CryceTruly",
-        "email": "aacryce@gmail.com",
+        "email": "crycetruly@gmail.com",
         "password": "Password123"
 
 }
 
 valid_login = {
 
-        "email": "aacryce@gmail.com",
+        "email": "crycetruly@gmail.com",
         "password": "Password123"
 
 }
@@ -34,14 +34,14 @@ valid_login_two = {
 
 wrong_password = {
 
-        "email": "aacryce@gmail.com",
+        "email": "crycetruly@gmail.com",
         "password": "Password12"
 
 }
 
 wrong_email = {
 
-        "email": "bagenda@gmail.com",
+        "email": "cryce@gmail.com",
         "password": "Password123"
 
 }
@@ -59,43 +59,43 @@ missing_email_data = {
 empty_username = {
 
         "username": "",
-        "email": "aacryce@gmail.com",
+        "email": "crycetruly@gmail.com",
         "password": "Password123"
 
 }
 empty_email = {
 
-        "username": "Bagzie",
+        "username": "Chryce",
         "email": "",
         "password": "Password123"
 
 }
 empty_password = {
 
-        "username": "Bagzie",
-        "email": "aacryce@gmail.com",
+        "username": "Chryce",
+        "email": "crycetruly@gmail.com",
         "password": ""
 
 }
 invalid_user_email = {
 
-        "username": "Bagzie",
-        "email": "bagendadegmail.com",
+        "username": "Chryce",
+        "email": "crycedegmail.com",
         "password": "Password123"
 
 }
 
 short_password = {
 
-        "username": "Bagzie",
-        "email": "aacryce@gmail.com",
+        "username": "Chryce",
+        "email": "crycetruly@gmail.com",
         "password": "Pass"
 
 }
 
 missing_username_key = {
 
-        "email": "aacryce@gmail.com",
+        "email": "crycetruly@gmail.com",
         "password": "Password123"
 
 }
@@ -123,7 +123,7 @@ invalid_password = {
 same_email = {
 
         "username": "roy12",
-        "email": "aacryce@gmail.com",
+        "email": "crycetruly@gmail.com",
         "password": "Password123"
 
 }
@@ -131,7 +131,7 @@ same_email = {
 same_username = {
 
         "username": "CryceTruly",
-        "email": "roywaisibani@gmail.com",
+        "email": "aacryce@gmail.com",
         "password": "Password123"
 
 }
