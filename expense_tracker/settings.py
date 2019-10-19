@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'drf_yasg',
     'expense_tracker.apps.expenses',
     'expense_tracker.apps.authentication',
 ]
