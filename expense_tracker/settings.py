@@ -71,9 +71,15 @@ TEMPLATES = [
     },
 ]
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'expense_tracker.apps.authentication.backends.JWTAuthentication'
+    ]
+}
+
 WSGI_APPLICATION = 'expense_tracker.wsgi.application'
 
-
+AUTH_USER_MODEL="authentication.User"
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
