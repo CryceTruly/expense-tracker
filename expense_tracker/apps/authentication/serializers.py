@@ -3,8 +3,6 @@ import re
 from django.contrib.auth import authenticate
 
 from rest_framework import serializers
-
-from authors.apps.profiles.serializers import ProfileSerializer
 from .models import User
 
 from .validators import validate_email
@@ -141,7 +139,6 @@ class UserSerializer(serializers.ModelSerializer):
     # characters. These values are the default provided by Django. We could
     # change them, but that would create extra work while introducing no real
     # benefit, so let's just stick with the defaults.
-    profile = ProfileSerializer(many=False, read_only=True, required=False)
     password = serializers.CharField(
         max_length=128,
         min_length=8,

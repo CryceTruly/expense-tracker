@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'drf_yasg',
     'expense_tracker.apps.expenses',
     'expense_tracker.apps.authentication',
+     'expense_tracker.apps.core',
 ]
 
 MIDDLEWARE = [
