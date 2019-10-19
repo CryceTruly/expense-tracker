@@ -4,15 +4,7 @@ from django.shortcuts import get_object_or_404
 
 from rest_framework import serializers
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 from expense_tracker.apps.authentication.models import User
-=======
-from authors.apps.authentication.models import User
->>>>>>> feat(accounts): Implement Account management
-=======
-from expense_tracker.apps.authentication.models import User
->>>>>>> ch(access): Implement Access control
 
 def validate_email(email):
     check_email = User.objects.filter(email=email)

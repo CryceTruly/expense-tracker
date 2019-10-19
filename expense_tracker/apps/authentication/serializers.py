@@ -3,18 +3,8 @@ import re
 from django.contrib.auth import authenticate
 
 from rest_framework import serializers
-<<<<<<< HEAD
-<<<<<<< HEAD
 from .models import User
 from rest_framework.exceptions import AuthenticationFailed
-=======
-
-from authors.apps.profiles.serializers import ProfileSerializer
-=======
->>>>>>> ch(access): Implement Access control
-from .models import User
-
->>>>>>> feat(accounts): Implement Account management
 from .validators import validate_email
 
 
@@ -99,11 +89,7 @@ class LoginSerializer(serializers.Serializer):
         # As mentioned above, a password is required. Raise an exception if a
         # password is not provided.
         if password is None:
-<<<<<<< HEAD
             raise AuthenticationFailed(
-=======
-            raise serializers.ValidationError(
->>>>>>> feat(accounts): Implement Account management
                 'A password is required to log in.'
             )
 
@@ -116,13 +102,8 @@ class LoginSerializer(serializers.Serializer):
         # If no user was found matching this email/password combination then
         # `authenticate` will return `None`. Raise an exception in this case.
         if user is None:
-<<<<<<< HEAD
             raise AuthenticationFailed(
                 'Incorrect login credentials',401
-=======
-            raise serializers.ValidationError(
-                'A user with this email and password was not found.'
->>>>>>> feat(accounts): Implement Account management
             )
 
         # Django provides a flag on our `User` model called `is_active`. The
@@ -158,13 +139,6 @@ class UserSerializer(serializers.ModelSerializer):
     # characters. These values are the default provided by Django. We could
     # change them, but that would create extra work while introducing no real
     # benefit, so let's just stick with the defaults.
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-    profile = ProfileSerializer(many=False, read_only=True, required=False)
->>>>>>> feat(accounts): Implement Account management
-=======
->>>>>>> ch(access): Implement Access control
     password = serializers.CharField(
         max_length=128,
         min_length=8,
@@ -173,11 +147,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-<<<<<<< HEAD
         fields = ('email', 'username', 'password', )
-=======
-        fields = ('email', 'username', 'password', 'profile', )
->>>>>>> feat(accounts): Implement Account management
 
         # The `read_only_fields` option is an alternative for explicitly
         # specifying the field with `read_only=True` like we did for password

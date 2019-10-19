@@ -4,22 +4,14 @@ authentication test data
 valid_user = {
 
         "username": "CryceTruly",
-<<<<<<< HEAD
         "email": "crycetruly@gmail.com",
-=======
-        "email": "aacryce@gmail.com",
->>>>>>> feat(accounts): Implement Account management
         "password": "Password123"
 
 }
 
 valid_login = {
 
-<<<<<<< HEAD
         "email": "crycetruly@gmail.com",
-=======
-        "email": "aacryce@gmail.com",
->>>>>>> feat(accounts): Implement Account management
         "password": "Password123"
 
 }
@@ -42,22 +34,14 @@ valid_login_two = {
 
 wrong_password = {
 
-<<<<<<< HEAD
         "email": "crycetruly@gmail.com",
-=======
-        "email": "aacryce@gmail.com",
->>>>>>> feat(accounts): Implement Account management
         "password": "Password12"
 
 }
 
 wrong_email = {
 
-<<<<<<< HEAD
         "email": "cryce@gmail.com",
-=======
-        "email": "bagenda@gmail.com",
->>>>>>> feat(accounts): Implement Account management
         "password": "Password123"
 
 }
@@ -75,70 +59,43 @@ missing_email_data = {
 empty_username = {
 
         "username": "",
-<<<<<<< HEAD
         "email": "crycetruly@gmail.com",
-=======
-        "email": "aacryce@gmail.com",
->>>>>>> feat(accounts): Implement Account management
         "password": "Password123"
 
 }
 empty_email = {
 
-<<<<<<< HEAD
         "username": "Chryce",
-=======
-        "username": "Bagzie",
->>>>>>> feat(accounts): Implement Account management
         "email": "",
         "password": "Password123"
 
 }
 empty_password = {
 
-<<<<<<< HEAD
         "username": "Chryce",
         "email": "crycetruly@gmail.com",
-=======
-        "username": "Bagzie",
-        "email": "aacryce@gmail.com",
->>>>>>> feat(accounts): Implement Account management
         "password": ""
 
 }
 invalid_user_email = {
 
-<<<<<<< HEAD
         "username": "Chryce",
         "email": "crycedegmail.com",
-=======
-        "username": "Bagzie",
-        "email": "bagendadegmail.com",
->>>>>>> feat(accounts): Implement Account management
         "password": "Password123"
 
 }
 
 short_password = {
 
-<<<<<<< HEAD
         "username": "Chryce",
         "email": "crycetruly@gmail.com",
-=======
-        "username": "Bagzie",
-        "email": "aacryce@gmail.com",
->>>>>>> feat(accounts): Implement Account management
         "password": "Pass"
 
 }
 
 missing_username_key = {
 
-<<<<<<< HEAD
         "email": "crycetruly@gmail.com",
-=======
-        "email": "aacryce@gmail.com",
->>>>>>> feat(accounts): Implement Account management
         "password": "Password123"
 
 }
@@ -166,11 +123,7 @@ invalid_password = {
 same_email = {
 
         "username": "roy12",
-<<<<<<< HEAD
         "email": "crycetruly@gmail.com",
-=======
-        "email": "aacryce@gmail.com",
->>>>>>> feat(accounts): Implement Account management
         "password": "Password123"
 
 }
@@ -178,11 +131,7 @@ same_email = {
 same_username = {
 
         "username": "CryceTruly",
-<<<<<<< HEAD
         "email": "aacryce@gmail.com",
-=======
-        "email": "roywaisibani@gmail.com",
->>>>>>> feat(accounts): Implement Account management
         "password": "Password123"
 
 }
