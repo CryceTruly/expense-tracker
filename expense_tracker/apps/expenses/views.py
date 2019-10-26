@@ -5,10 +5,12 @@ from .serializer import ExpenseSerializer
 from django.shortcuts import get_object_or_404
 from rest_framework import permissions
 from .permissions import IsOwner
+from .pagination import ExpensePaginator
 
 class ExpensesAPIView(generics.ListCreateAPIView):
     queryset=Expense.objects.all()
     serializer_class=ExpenseSerializer
+    pagination_class=ExpensePaginator
     permission_classes=(permissions.IsAuthenticated,)
 
     def perform_create(self,serializer):
