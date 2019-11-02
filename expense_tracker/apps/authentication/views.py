@@ -92,6 +92,7 @@ class UserRetrieveUpdateAPIView(generics.RetrieveUpdateAPIView):
 
 
 class EmailVerifyAPIView(generics.GenericAPIView):
+    serializer_class=UserSerializer
     def get(self, request):
         token = request.GET.get('token')
         try:

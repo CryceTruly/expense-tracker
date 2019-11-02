@@ -78,7 +78,8 @@ REST_FRAMEWORK = {
      'NON_FIELD_ERRORS_KEY': 'error',
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'expense_tracker.apps.authentication.backends.JWTAuthentication'
-    ]
+    ],
+    'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.NamespaceVersioning'
 }
 
 WSGI_APPLICATION = 'expense_tracker.wsgi.application'
