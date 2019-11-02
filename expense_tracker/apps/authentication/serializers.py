@@ -1,7 +1,7 @@
 import re
 
 from django.contrib.auth import authenticate
-
+from django.core.exceptions import ValidationError
 from rest_framework import serializers
 from .models import User
 from rest_framework.exceptions import AuthenticationFailed
@@ -15,7 +15,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
     # characters, and can not be read by the client.
     password = serializers.CharField(
         max_length=128,
-        min_length=8,
+        min_length=6,
         write_only=True,
         error_messages={
             "min_length": "Password should be atleast {min_length} characters"
@@ -103,7 +103,7 @@ class LoginSerializer(serializers.Serializer):
         # `authenticate` will return `None`. Raise an exception in this case.
         if user is None:
             raise AuthenticationFailed(
-                'Incorrect login credentials',401
+                'Incorrect email password combination,check and try again',401
             )
 
         # Django provides a flag on our `User` model called `is_active`. The
@@ -111,15 +111,14 @@ class LoginSerializer(serializers.Serializer):
         # or otherwise deactivated. This will almost never be the case, but
         # it is worth checking for. Raise an exception in this case.
         if not user.is_active:
-            raise serializers.ValidationError(
-                'This user has been deactivated.'
-            )
+            raise serializers.ValidationError()
         # We need to first verify if a users email is verified before we can let them use  the platform
 
         verified_user = User.objects.filter(email=email).first()
         if not verified_user.is_verified:
-            raise serializers.ValidationError(
-                'Your email is not verified,please click the link in your mailbox')
+            raise ValidationError(
+            {'email': 'Email is not verified,please click the link in your mailbox'},
+                )
 
 
         # The `validate` method should return a dictionary of validated data.

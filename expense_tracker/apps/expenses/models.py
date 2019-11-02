@@ -18,9 +18,12 @@ class Expense(models.Model):
     name=models.CharField(max_length=255,db_index=True)
     spent_on=models.DateField(blank=False,null=False)
     description=models.TextField(blank=True)
+    amount=models.FloatField(blank=False,null=False)
     currency=models.CharField(max_length=20,default="Ugx")
     category=models.CharField(max_length=200,choices=CATEGORY_OPTIONS,null=False,blank=False)
     owner=models.ForeignKey(to=User,on_delete=models.CASCADE)
-
+    
+    class Meta:
+        ordering = ['-spent_on']
     def __str__(self):
         return self.name
