@@ -11,19 +11,11 @@ class UserJSONRenderer(JSONRenderer):
         # or something similar), `data` will contain an `errors` key. We want
         # the default JSONRenderer to handle rendering errors, so we need to
         # check for this case.
-        errors = ''
-        response = json.dumps({'user': data})
-        if isinstance(data, list):
-            return json.dumps({'users': data})
-        try:
-            errors = data.get('errors', None)
-        except:
-            pass
-
-        if errors is not None:
-            # As mentioned about, we will let the default JSONRenderer handle
-            # rendering errors.
-            return super(UserJSONRenderer, self).render(data)
+        response=''
+        if "Err" in str(data):
+            response = json.dumps({'errors': data})
+        else:
+            response = json.dumps({'user': data})
 
         # Finally, we can render our data under the "user" namespace.
         return response
