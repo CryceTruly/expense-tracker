@@ -8,15 +8,12 @@ class Utilities:
     @staticmethod
     def send_email(data,domain=None,intent=None):
         """This function sends email to users."""
-        if intent == 'article_reports':
-            EmailMessage(data['subject'],body=data['body'],to=[data['to']]).send(fail_silently=False)
-
-        elif intent=='password_rest':
+        if intent =='password_reset':
             url = f"{domain}/reset_password/{data[2]}"
             subject = f"[Expense Tracker] {data[3]}"
             body = f"Hello, \
                                \nYou are receiving this e-mail because you have {data[4]}' \
-                               '\nClick the click below to verify your account.\n{url}"
+                               '\nClick the click below to set a new password.\n{url}"
             EmailMessage(subject, body, to=[data[5]]).send(fail_silently=False)
         else:
             url = f"http://{get_current_site(data[0]).domain}/api/auth/{data[1]}?token={data[2]}"
