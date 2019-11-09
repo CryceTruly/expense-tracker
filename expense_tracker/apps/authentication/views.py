@@ -121,7 +121,13 @@ class PasswordResetAPIView(generics.GenericAPIView):
     def post(self, request):
         domain=request.META.get('HTTP_ORIGIN', get_current_site(request).domain)
         try:
-            get_object_or_404(User, email=request.data['email'])
+            user=User.objects.filter(email=request.data['email'])
+            if not user:
+                return Response({
+                  "errors": {
+                  "email":["No records corresponding to this email"]
+                 }},status=status.HTTP_404_NOT_FOUND
+                )
             message = [
                 request,
                 "reset-password/change/",
@@ -134,7 +140,7 @@ class PasswordResetAPIView(generics.GenericAPIView):
             ]
 
 
-            Utilities.send_email(message,domain,'password_rest')
+            Utilities.send_email(message,domain,'password_reset')
             return Response(
                 {
                     "message": "Please check your email for the reset password link."
@@ -142,8 +148,11 @@ class PasswordResetAPIView(generics.GenericAPIView):
                 status.HTTP_200_OK
             )
         except KeyError:
-            raise exceptions.ValidationError(
-                "Email is required in order to reset password."
+            return Response({
+                "errors": {
+"email":["Email is required to reset a password"]
+                }},
+                status.HTTP_400_BAD_REQUEST
             )
 
 
@@ -157,7 +166,7 @@ class ChangePasswordAPIView(generics.GenericAPIView):
         try:
             payload = jwt.decode(request.GET.get('token'), settings.SECRET_KEY)
             user = User.objects.filter(email=payload.get('email')).first()
-            if len(request.data['password']) >= 8:
+            if len(request.data['password']) >= 6:
                 user.set_password(request.data['password'])
                 user.save()
                 return Response({
