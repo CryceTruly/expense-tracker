@@ -1,4 +1,4 @@
-from rest_framework import status, generics, exceptions
+from rest_framework import status, generics, exceptions,serializers
 import jwt
 from django.conf import settings
 from django.shortcuts import get_object_or_404
@@ -117,17 +117,18 @@ class PasswordResetAPIView(generics.GenericAPIView):
     #then send rest password link
     permission_classes = (AllowAny,)
     serializer_class = ResetPasswordSerializer
-
+    renderer_classes=(UserJSONRenderer,)
     def post(self, request):
         domain=request.META.get('HTTP_ORIGIN', get_current_site(request).domain)
+        serializer=self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
         try:
             user=User.objects.filter(email=request.data['email'])
             if not user:
-                return Response({
-                  "errors": {
-                  "email":["No records corresponding to this email"]
-                 }},status=status.HTTP_404_NOT_FOUND
-                )
+                raise serializers.ValidationError({
+            "email":["No records correspodingto this user were found"]
+            })
+                
             message = [
                 request,
                 "reset-password/change/",
