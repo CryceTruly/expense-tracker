@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'expense_tracker.apps.expenses',
     'expense_tracker.apps.authentication',
-     'expense_tracker.apps.core',
+    'expense_tracker.apps.core',
 ]
 
 MIDDLEWARE = [
@@ -75,7 +75,7 @@ TEMPLATES = [
 ]
 
 REST_FRAMEWORK = {
-     'NON_FIELD_ERRORS_KEY': 'error',
+    'NON_FIELD_ERRORS_KEY': 'error',
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'expense_tracker.apps.authentication.backends.JWTAuthentication'
     ],
@@ -142,4 +142,4 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = os.environ.get('SENDER_EMAIL')
 EMAIL_HOST_PASSWORD = os.environ.get('SENDER_PASSWORD')
 
-ALLOWED_HOSTS=['*']
+ALLOWED_HOSTS = ['*']

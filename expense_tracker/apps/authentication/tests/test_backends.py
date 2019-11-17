@@ -2,8 +2,6 @@
 from .test_base import BaseTest
 from rest_framework.views import status
 from .test_data import valid_user
-from ..models import User
-
 
 class UserBackendsTest(BaseTest):
 
