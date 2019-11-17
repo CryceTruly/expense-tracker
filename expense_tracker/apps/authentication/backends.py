@@ -17,7 +17,8 @@ class JWTAuthentication(authentication.BaseAuthentication):
                 raise exceptions.AuthenticationFailed(
                     "Bearer needed as a prefix."
                 )
-            elif not ((self.authentication_credentials(request, token))[0]).is_verified:
+            elif not ((self.authentication_credentials(
+                    request, token))[0]).is_verified:
                 raise exceptions.AuthenticationFailed(
                     "Your email is not verified, please check your email."
                 )
@@ -34,7 +35,10 @@ class JWTAuthentication(authentication.BaseAuthentication):
                     "Your account was deactivated, please contact admin."
                 )
             return (user, token)
-        except:
+        except jwt.ExpiredSignatureError:
             raise exceptions.AuthenticationFailed(
-                "Your token is invalid or is expired, please login again."
+                "Your token is expired, please login again."
             )
+        except jwt.exceptions.DecodeError:
+            raise exceptions.AuthenticationFailed(
+                "Your token is invalid, please login again.")

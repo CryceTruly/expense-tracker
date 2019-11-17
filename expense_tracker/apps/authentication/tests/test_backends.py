@@ -2,7 +2,6 @@
 from .test_base import BaseTest
 from rest_framework.views import status
 from .test_data import valid_user
-from ..models import User
 
 
 class UserBackendsTest(BaseTest):
@@ -17,12 +16,12 @@ class UserBackendsTest(BaseTest):
             valid_user, format='json'
         )
         token = registration.data['token']
-        self.client.credentials(HTTP_AUTHORIZATION='Bearer '+ token)
+        self.client.credentials(HTTP_AUTHORIZATION='Bearer ' + token)
 
         response = self.client.get(self.viewusers, format='json')
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
         self.assertEqual(
-            response.data['detail'], 
+            response.data['detail'],
             "Your email is not verified, please check your email."
         )
 
@@ -33,12 +32,12 @@ class UserBackendsTest(BaseTest):
             valid_user, format='json'
         )
         token = registration.data['token']
-        self.client.credentials(HTTP_AUTHORIZATION='token '+ token)
+        self.client.credentials(HTTP_AUTHORIZATION='token ' + token)
 
         response = self.client.get(self.viewusers, format='json')
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
         self.assertEqual(
-            response.data['detail'], 
+            response.data['detail'],
             "Bearer needed as a prefix."
         )
 
@@ -49,11 +48,11 @@ class UserBackendsTest(BaseTest):
             valid_user, format='json'
         )
         token = registration.data['token'] + "sabgccadca"
-        self.client.credentials(HTTP_AUTHORIZATION='Bearer '+ token)
+        self.client.credentials(HTTP_AUTHORIZATION='Bearer ' + token)
 
         response = self.client.get(self.viewusers, format='json')
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
         self.assertEqual(
-            response.data['detail'], 
-            "Your token is invalid or is expired, please login again."
+            response.data['detail'],
+            "Your token is invalid, please login again."
         )

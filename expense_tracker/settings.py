@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'expense_tracker.apps.expenses',
     'expense_tracker.apps.authentication',
-     'expense_tracker.apps.core',
+    'expense_tracker.apps.core',
 ]
 
 MIDDLEWARE = [
@@ -75,7 +75,7 @@ TEMPLATES = [
 ]
 
 REST_FRAMEWORK = {
-     'NON_FIELD_ERRORS_KEY': 'error',
+    'NON_FIELD_ERRORS_KEY': 'error',
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'expense_tracker.apps.authentication.backends.JWTAuthentication'
     ],
@@ -84,7 +84,7 @@ REST_FRAMEWORK = {
 
 WSGI_APPLICATION = 'expense_tracker.wsgi.application'
 
-AUTH_USER_MODEL="authentication.User"
+AUTH_USER_MODEL = "authentication.User"
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
@@ -99,19 +99,14 @@ DATABASES = {
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
 
+
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
+    {"NAME": f"django.contrib.auth.password_validation.{name}"}
+    for name in [
+        "UserAttributeSimilarityValidator",
+        "MinimumLengthValidator",
+        "CommonPasswordValidator",
+        "NumericPasswordValidator"]
 ]
 
 
@@ -142,4 +137,4 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = os.environ.get('SENDER_EMAIL')
 EMAIL_HOST_PASSWORD = os.environ.get('SENDER_PASSWORD')
 
-ALLOWED_HOSTS=['*']
+ALLOWED_HOSTS = ['*']

@@ -4,7 +4,6 @@
 from rest_framework.test import APIClient, APITestCase
 from .test_data import valid_user, valid_login, valid_login_two, valid_user_two
 from django.urls import reverse
-from .test_data import valid_user, valid_login, valid_login_two, valid_user_two
 
 
 class BaseTest(APITestCase):
@@ -25,8 +24,9 @@ class BaseTest(APITestCase):
         """
         register_response = self.client.post(
             self.registration_url, valid_user, format='json')
-        self.client.get(self.verify_url+"?token=" +
-                        register_response.data['token'], format='json')
+        self.client.get(
+            self.verify_url + "?token=" + register_response.data['token'],
+            format='json')
         response = self.client.post(self.login_url, valid_login, format='json')
         token = response.data['token']
         self.client.credentials(HTTP_AUTHORIZATION=f'Bearer {token}')
@@ -37,8 +37,9 @@ class BaseTest(APITestCase):
         """
         register_response = self.client.post(
             self.registration_url, valid_user_two, format='json')
-        self.client.get(self.verify_url+"?token=" +
-                        register_response.data['token'], format='json')
+        self.client.get(
+            self.verify_url + "?token=" + register_response.data['token'],
+            format='json')
         response = self.client.post(
             self.login_url, valid_login_two, format='json')
         token = response.data['token']

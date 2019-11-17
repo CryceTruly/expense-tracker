@@ -11,7 +11,7 @@ class UserJSONRenderer(JSONRenderer):
         # or something similar), `data` will contain an `errors` key. We want
         # the default JSONRenderer to handle rendering errors, so we need to
         # check for this case.
-        response=''
+        response = ''
         if "Err" in str(data):
             response = json.dumps({'errors': data})
         else:
