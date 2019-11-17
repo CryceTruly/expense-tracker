@@ -29,3 +29,23 @@ jobs: # A basic unit of work in a run
       - store_artifacts: # Upload test summary for display in Artifacts: https://circleci.com/docs/2.0/artifacts/
           path: test-results
           destination: tr1
+    lint:
+      working_directory: ~/repo
+      docker: 
+        - image: circleci/python:3.6.4
+          environment: # environment variables for primary container
+            DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
+        - image: circleci/postgres:9.6.2
+          environment:
+            POSTGRES_USER: root
+            POSTGRES_DB: circle_test
+      steps:
+        - checkout
+        - run: sudo chown -R circleci:circleci /usr/local/bin
+        - run: sudo chown -R circleci:circleci /usr/local/lib/python3.6/site-packages
+        - run:
+            command: |
+              virtualenv venv
+              source venv/bin/activate
+              pip install -r requirements.txt
+              flake8

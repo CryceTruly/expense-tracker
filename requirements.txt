@@ -13,6 +13,8 @@ django-heroku==0.3.1
 djangorestframework==3.10.3
 docopt==0.6.2
 drf-yasg==1.17.0
+entrypoints==0.3
+flake8==3.7.9
 gunicorn==19.9.0
 idna==2.8
 inflection==0.3.1
@@ -24,6 +26,8 @@ MarkupSafe==1.1.1
 mccabe==0.6.1
 packaging==19.2
 psycopg2==2.8.3
+pycodestyle==2.5.0
+pyflakes==2.1.1
 PyJWT==1.7.1
 pylint==2.4.3
 pyparsing==2.4.2
