@@ -1,14 +1,11 @@
-from rest_framework import status, generics, exceptions,serializers
+from rest_framework import status, generics, exceptions, serializers
 import jwt
 from django.conf import settings
-from django.shortcuts import get_object_or_404
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from django.contrib.sites.shortcuts import get_current_site
 from .models import User
 from .renderers import UserJSONRenderer
-import os
-from django.http import HttpResponseRedirect
 from .serializers import (
     LoginSerializer, RegistrationSerializer, UserSerializer,
     ResetPasswordSerializer, ChangePasswordSerializer
@@ -41,7 +38,7 @@ class RegistrationAPIView(generics.GenericAPIView):
             "created an expense tracker account.",
             user_data['email']
         ]
-        Utilities.send_email(message,None,'auth')
+        Utilities.send_email(message, None, 'auth')
 
         return Response(user_data, status=status.HTTP_201_CREATED)
 
@@ -92,7 +89,8 @@ class UserRetrieveUpdateAPIView(generics.RetrieveUpdateAPIView):
 
 
 class EmailVerifyAPIView(generics.GenericAPIView):
-    serializer_class=UserSerializer
+    serializer_class = UserSerializer
+
     def get(self, request):
         token = request.GET.get('token')
         try:
@@ -104,9 +102,8 @@ class EmailVerifyAPIView(generics.GenericAPIView):
         user = User.objects.filter(email=payload.get('email')).first()
         user.is_verified = True
         user.save()
-        domain = os.environ.get('FRONT_END_URL','localhost')
-        #TODO UPdate with a redirect
-        return self.sendResponse('Account activation successfull',200)
+        # TODO UPdate with a redirect
+        return self.sendResponse('Account activation successfull', 200)
 
     def sendResponse(self, message, status=status.HTTP_400_BAD_REQUEST):
         return Response({"message": message}, status)
@@ -114,44 +111,46 @@ class EmailVerifyAPIView(generics.GenericAPIView):
 
 class PasswordResetAPIView(generics.GenericAPIView):
     # Allow any user (authenticated or not) to hit this endpoint.
-    #then send rest password link
+    # then send rest password link
     permission_classes = (AllowAny,)
     serializer_class = ResetPasswordSerializer
-    renderer_classes=(UserJSONRenderer,)
+    renderer_classes = (UserJSONRenderer,)
+
     def post(self, request):
-        domain=request.META.get('HTTP_ORIGIN', get_current_site(request).domain)
-        serializer=self.serializer_class(data=request.data)
+        domain = request.META.get(
+            'HTTP_ORIGIN', get_current_site(request).domain)
+        serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
         try:
-            user=User.objects.filter(email=request.data['email'])
+            user = User.objects.filter(email=request.data['email'])
             if not user:
                 raise serializers.ValidationError({
-            "email":["No records correspodingto this user were found"]
-            })
-                
+                    "email": ["No records correspodingto this user were found"]
+                })
+
             message = [
                 request,
                 "reset-password/change/",
                 str((jwt.encode({"email": request.data['email']},
-                    settings.SECRET_KEY)).decode('utf-8')
-                ),
+                                settings.SECRET_KEY)).decode('utf-8')
+                    ),
                 "Reset Password",
                 "requested for password reset.",
                 request.data['email']
             ]
 
-
-            Utilities.send_email(message,domain,'password_reset')
+            Utilities.send_email(message, domain, 'password_reset')
             return Response(
                 {
-                    "message": "Please check your email for the reset password link."
+                    "message":
+                    "Please check your email for the reset password link."
                 },
                 status.HTTP_200_OK
             )
         except KeyError:
             return Response({
                 "errors": {
-"email":["Email is required to reset a password"]
+                    "email": ["Email is required to reset a password"]
                 }},
                 status.HTTP_400_BAD_REQUEST
             )
