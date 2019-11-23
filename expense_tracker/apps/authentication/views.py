@@ -1,4 +1,4 @@
-from rest_framework import status, generics, exceptions, serializers
+from rest_framework import status, generics, serializers
 import jwt
 from django.conf import settings
 from rest_framework.permissions import AllowAny, IsAuthenticated
@@ -8,7 +8,7 @@ from .models import User
 from .renderers import UserJSONRenderer
 from .serializers import (
     LoginSerializer, RegistrationSerializer, UserSerializer,
-    ResetPasswordSerializer, ChangePasswordSerializer
+    ResetPasswordSerializer,
 )
 
 from ..core.utils import Utilities
@@ -67,24 +67,7 @@ class UserRetrieveUpdateAPIView(generics.RetrieveUpdateAPIView):
     serializer_class = UserSerializer
 
     def retrieve(self, request, *args, **kwargs):
-        # There is nothing to validate or save here. Instead, we just want the
-        # serializer to handle turning our `User` object into something that
-        # can be JSONified and sent to the client.
         serializer = self.serializer_class(request.user)
-
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
-    def update(self, request, *args, **kwargs):
-        serializer_data = request.data
-
-        # Here is that serialize, validate, save pattern we talked about
-        # before.
-        serializer = self.serializer_class(
-            request.user, data=serializer_data, partial=True
-        )
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
@@ -152,41 +135,5 @@ class PasswordResetAPIView(generics.GenericAPIView):
                 "errors": {
                     "email": ["Email is required to reset a password"]
                 }},
-                status.HTTP_400_BAD_REQUEST
-            )
-
-
-class ChangePasswordAPIView(generics.GenericAPIView):
-    # Allow any user (authenticated or not) to hit this endpoint.
-    # then allows users to set password
-    permission_classes = (AllowAny,)
-    serializer_class = ChangePasswordSerializer
-
-    def patch(self, request):
-        try:
-            payload = jwt.decode(request.GET.get('token'), settings.SECRET_KEY)
-            user = User.objects.filter(email=payload.get('email')).first()
-            if len(request.data['password']) >= 6:
-                user.set_password(request.data['password'])
-                user.save()
-                return Response({
-                    "message": "you have reset your password successfully."},
-                    status.HTTP_200_OK
-                )
-            return Response({
-                "error": "password should be atleast 8 characters."},
-                status.HTTP_400_BAD_REQUEST
-            )
-
-        except jwt.exceptions.DecodeError:
-            return Response({
-                "error": "verification link is invalid."},
-                status.HTTP_400_BAD_REQUEST
-            )
-        except KeyError:
-            raise exceptions.ValidationError("Password field is required.")
-        except jwt.ExpiredSignatureError:
-            return Response({
-                "error": "verification link is expired"},
                 status.HTTP_400_BAD_REQUEST
             )
