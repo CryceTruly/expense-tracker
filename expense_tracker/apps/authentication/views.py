@@ -1,4 +1,4 @@
-from rest_framework import status, generics, exceptions, serializers
+from rest_framework import status, generics, serializers
 import jwt
 from django.conf import settings
 from rest_framework.permissions import AllowAny, IsAuthenticated
@@ -8,7 +8,7 @@ from .models import User
 from .renderers import UserJSONRenderer
 from .serializers import (
     LoginSerializer, RegistrationSerializer, UserSerializer,
-    ResetPasswordSerializer, ChangePasswordSerializer
+    ResetPasswordSerializer,
 )
 
 from ..core.utils import Utilities

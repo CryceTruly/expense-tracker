@@ -1,4 +1,3 @@
-from rest_framework.test import APITestCase
 from django.urls import reverse
 from faker import Faker
 import random
@@ -114,14 +113,17 @@ class ViewTest(BaseTest):
     def test_should_not_create_expense_with_invalid_date(self):
         self.authenticate_user()
         response = self.client.post(
-            self.expenses_url, data=self.expense_with_invalid_date, format='json')
+            self.expenses_url, data=self.expense_with_invalid_date,
+            format='json')
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
     def test_should_not_get_expenses_not_auth(self):
         response = self.client.get(self.expenses_url, format='json')
         self.assertEqual(
-            str(response.data['detail']), 'Authentication credentials were not provided.')
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+            str(response.data['detail']),
+            'Authentication credentials were not provided.')
+        self.assertEqual(response.status_code,
+                         status.HTTP_403_FORBIDDEN)
 
     def test_should_get_own_expenses(self):
         self.authenticate_user()
@@ -132,7 +134,8 @@ class ViewTest(BaseTest):
     def test_should_render_expense_correctly(self):
         self.authenticate_user()
         self.create_expense()
-        res = self.client.get(reverse('expenses:expense', kwargs={'id': int(1)}),
+        res = self.client.get(reverse('expenses:expense',
+                                      kwargs={'id': int(1)}),
                               format='json')
         self.assertEqual(res.data['id'], 1)
         self.assertEqual(res.status_code, status.HTTP_200_OK)
@@ -140,7 +143,8 @@ class ViewTest(BaseTest):
     def test_should_raise_an_error_when_expense_doesnot_exist(self):
         self.authenticate_user()
         self.create_expense()
-        res = self.client.get(reverse('expenses:expense', kwargs={'id': int(3)}),
+        res = self.client.get(reverse('expenses:expense',
+                                      kwargs={'id': int(3)}),
                               format='json')
         self.assertEqual(res.data['errors'], 'that expense was not found')
         self.assertEqual(res.status_code, status.HTTP_404_NOT_FOUND)
@@ -149,9 +153,11 @@ class ViewTest(BaseTest):
         self.authenticate_user()
         self.create_expense()
         res = self.client.patch(
-            reverse('expenses:expense', kwargs={'id': int(1)}), data=self.updated_expense, format='json')
+            reverse('expenses:expense', kwargs={'id': int(1)}),
+            data=self.updated_expense, format='json')
         self.assertEqual(res.data['data']['id'], 1)
-        res2 = self.client.get(reverse('expenses:expense', kwargs={'id': int(1)}),
+        res2 = self.client.get(reverse('expenses:expense',
+                                       kwargs={'id': int(1)}),
                                format='json')
         self.assertEqual(res2.data['id'], 1)
         self.assertEqual(res2.data['name'], 'Updated name')
