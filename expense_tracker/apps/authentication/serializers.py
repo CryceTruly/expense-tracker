@@ -3,7 +3,7 @@ from django.core.exceptions import ValidationError
 from rest_framework import serializers
 from .models import User
 from rest_framework.exceptions import AuthenticationFailed
-from .validators import validate_email
+from validate_email import validate_email
 
 
 class RegistrationSerializer(serializers.ModelSerializer):

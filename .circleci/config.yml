@@ -57,7 +57,7 @@ jobs:
             virtualenv venv
             source venv/bin/activate
             pip install -r requirements.txt
-            coverage run --source='expense_tracker/apps' manage.py test && coverage report
+            coverage run --source='expense_tracker/apps' manage.py test && coverage report && coverage html
             coveralls
             
 workflows:
