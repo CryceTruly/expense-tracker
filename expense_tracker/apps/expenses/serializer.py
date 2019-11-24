@@ -11,7 +11,7 @@ class ExpenseSerializer(serializers.ModelSerializer):
 
     def create(self, data):
         self.validate(data)
-        return data
+        return Expense.objects.create(**data)
 
     def validate(self, data):
         if(data['spent_on'] > datetime.date.today()):
