@@ -134,10 +134,11 @@ class ViewTest(BaseTest):
     def test_should_render_expense_correctly(self):
         self.authenticate_user()
         self.create_expense()
+        created_expense = Expense.objects.latest('id')
         res = self.client.get(reverse('expenses:expense',
-                                      kwargs={'id': int(1)}),
+                                      kwargs={'id': int(created_expense.id)}),
                               format='json')
-        self.assertEqual(res.data['id'], 1)
+        self.assertEqual(res.data['id'], created_expense.id)
         self.assertEqual(res.status_code, status.HTTP_200_OK)
 
     def test_should_raise_an_error_when_expense_doesnot_exist(self):
@@ -152,14 +153,15 @@ class ViewTest(BaseTest):
     def test_should_update_expense_correctly(self):
         self.authenticate_user()
         self.create_expense()
+        created_expense = Expense.objects.latest('id')
         res = self.client.patch(
-            reverse('expenses:expense', kwargs={'id': int(1)}),
+            reverse('expenses:expense', kwargs={'id': created_expense.id}),
             data=self.updated_expense, format='json')
-        self.assertEqual(res.data['data']['id'], 1)
+        self.assertEqual(res.data['data']['id'], created_expense.id)
         res2 = self.client.get(reverse('expenses:expense',
-                                       kwargs={'id': int(1)}),
+                                       kwargs={'id': created_expense.id}),
                                format='json')
-        self.assertEqual(res2.data['id'], 1)
+        self.assertEqual(res2.data['id'], created_expense.id)
         self.assertEqual(res2.data['name'], 'Updated name')
         self.assertEqual(res2.status_code, status.HTTP_200_OK)
 
