@@ -179,7 +179,8 @@ class ViewTest(BaseTest):
         self.create_expense()
         created_expense = Expense.objects.latest('id')
         res = self.client.delete(
-            reverse('expenses:expense', kwargs={'id': created_expense.id}), format='json')
+            reverse('expenses:expense', kwargs={'id': created_expense.id}),
+            format='json')
         self.assertEqual(res.status_code, status.HTTP_200_OK)
 
     def test_should_not_delete_an_innexisitent_expense(self):
