@@ -1,11 +1,9 @@
-import re
-
 from django.contrib.auth import authenticate
 from django.core.exceptions import ValidationError
 from rest_framework import serializers
 from .models import User
 from rest_framework.exceptions import AuthenticationFailed
-from .validators import validate_email
+from validate_email import validate_email
 
 
 class RegistrationSerializer(serializers.ModelSerializer):
@@ -56,7 +54,8 @@ class RegistrationSerializer(serializers.ModelSerializer):
         return User.objects.create_user(**validated_data)
 
     def user_exists(self, field, value):
-        if(field == 'email' and User.objects.filter(email=value).first() is not None):
+        if(field == 'email' and User.objects.filter(
+                email=value).first() is not None):
             raise serializers.ValidationError(
                 "This email has already been used to create a user")
         elif User.objects.filter(username=value).first() is not None:
@@ -103,7 +102,7 @@ class LoginSerializer(serializers.Serializer):
         # `authenticate` will return `None`. Raise an exception in this case.
         if user is None:
             raise AuthenticationFailed(
-                'Incorrect email password combination,check and try again',401
+                'Incorrect email password combination,check and try again', 401
             )
 
         # Django provides a flag on our `User` model called `is_active`. The
@@ -112,14 +111,16 @@ class LoginSerializer(serializers.Serializer):
         # it is worth checking for. Raise an exception in this case.
         if not user.is_active:
             raise serializers.ValidationError()
-        # We need to first verify if a users email is verified before we can let them use  the platform
+        # We need to first verify if a users email is verified before we can
+        # let them use  the platform
 
         verified_user = User.objects.filter(email=email).first()
         if not verified_user.is_verified:
             raise ValidationError(
-            {'email': 'Email is not verified,please click the link in your mailbox'},
-                )
-
+                {'email':
+                 'Email is not verified,\
+                     please click the link in your mailbox'},
+            )
 
         # The `validate` method should return a dictionary of validated data.
         # This is the data that is passed to the `create` and `update` methods
