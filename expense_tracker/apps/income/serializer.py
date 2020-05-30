@@ -1,17 +1,17 @@
 from rest_framework import serializers
-from .models import Expense
+from .models import Income
 import datetime
 
 
-class ExpenseSerializer(serializers.ModelSerializer):
+class IncomeSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Expense
+        model = Income
         fields = ['id', 'amount', 'date',
-                  'description', "category"]
+                  'description', "source"]
 
     def create(self, data):
         self.validate(data)
-        return Expense.objects.create(**data)
+        return Income.objects.create(**data)
 
     def validate(self, data):
         if(data['date'] > datetime.date.today()):

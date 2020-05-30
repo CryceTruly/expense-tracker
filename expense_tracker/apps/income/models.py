@@ -2,18 +2,12 @@ from django.db import models
 from expense_tracker.apps.authentication.models import User
 
 
-class Expense(models.Model):
+class Income(models.Model):
 
-    CATEGORY_OPTIONS = [
-        ('ONLINE_SERVICES', 'ONLINE_SERVICES'),
-        ('RENT', 'RENT'),
-        ('BUSINESS_MISCELLANEOUS', 'BUSINESS_MISCELLANEOUS'),
-        ('TRAVEL', 'TRAVEL'),
-        ('GENERAL_MERCHANDISE', 'GENERAL_MERCHANDISE'),
-        ('RESTUARANTS', 'RESTUARANTS'),
-        ('ENTERTAINMENT', 'ENTERTAINMENT'),
-        ('GASOLINE_FUEL', 'GASOLINE_FUEL'),
-        ('INSURANCE', 'INSURANCE'),
+    SOURCES = [
+        ('SALARY', 'SALARY'),
+        ('BUSINESS', 'BUSINESS'),
+        ('SIDE_HUSTLES', 'BUSINESS_MISCELLANEOUS'),
         ('OTHERS', 'OTHERS')
     ]
     description = models.CharField(max_length=255, db_index=True)
@@ -21,8 +15,8 @@ class Expense(models.Model):
     description = models.TextField(blank=True)
     amount = models.DecimalField(
         max_digits=9, decimal_places=2, blank=False, null=False)
-    category = models.CharField(
-        max_length=200, choices=CATEGORY_OPTIONS, null=False, blank=False)
+    source = models.CharField(
+        max_length=200, choices=SOURCES, null=False, blank=False)
     owner = models.ForeignKey(to=User, on_delete=models.CASCADE)
 
     class Meta:

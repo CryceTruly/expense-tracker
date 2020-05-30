@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'expense_tracker.apps.expenses',
     'expense_tracker.apps.authentication',
+    'expense_tracker.apps.income',
     'expense_tracker.apps.core',
 ]
 

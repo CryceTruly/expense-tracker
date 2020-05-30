@@ -108,7 +108,7 @@ class PasswordResetAPIView(generics.GenericAPIView):
             user = User.objects.filter(email=request.data['email'])
             if not user:
                 raise serializers.ValidationError({
-                    "email": ["No records correspodingto this user were found"]
+                    "email": ["No records correspondingly this user were found"]
                 })
 
             message = [
