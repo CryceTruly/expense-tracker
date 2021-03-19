@@ -11,7 +11,7 @@ dj-database-url==0.5.0
 Django==2.2.6
 django-cors-headers==3.1.1
 django-heroku==0.3.1
-djangorestframework==3.10.3
+djangorestframework==3.11.2
 docopt==0.6.2
 drf-yasg==1.17.0
 entrypoints==0.3
